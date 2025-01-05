@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <title>Пошук номерів</title>
+</head>
+<body>
+    
+    <h1>Пошук автомобільних номерів</h1>
+
+    <!-- Форма для пошуку -->
+    <form method="POST">
+        <label for="start_date">Дата початку:</label>
+        <!-- Поле для вибору дати і часу -->
+        <input type="datetime-local" id="start_date" name="start_date" required><br><br>
+
+        <label for="end_date">Дата кінця:</label>
+        <!-- Поле для вибору дати і часу -->
+        <input type="datetime-local" id="end_date" name="end_date" required><br><br>
+
+        <label for="camera_name">Назва камери:</label>
+        <!-- Випадаючий список для вибору камери -->
+        <select id="camera_name" name="camera_name" required>
+            <option value="">Оберіть камеру</option>
+            <option value="Камера_1">Камера 1</option>
+            <option value="Камера_2">Камера 2</option>
+            <option value="Камера_3">Камера 3</option>
+            <option value="Камера_4">Камера 4</option>
+        </select><br><br>
+
+        <button type="submit">Пошук</button>
+    </form>
+
+    <h2>Результати пошуку:</h2>
+    <!-- Відображення результатів -->
+    {% if results %}
+        <table border="1">
+            <tr>
+                <th>Номер</th>
+                <th>Час</th>
+                <th>Марка</th>
+                <th>Колір</th>
+                <th>Камера</th>
+            </tr>
+            {% for row in results %}
+                <tr>
+                    <td>{{ row[0] }}</td>
+                    <td>{{ row[1] }}</td>
+                    <td>{{ row[2] }}</td>
+                    <td>{{ row[3] }}</td>
+                    <td>{{ row[4] }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>Результати не знайдено.</p>
+    {% endif %}
+</body>
+</html>
